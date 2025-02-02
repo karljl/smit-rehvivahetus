@@ -1,0 +1,35 @@
+name: smit-rehvivahetus
+
+services:
+  london-workshop:
+    image: surmus/london-tire-workshop:2.0.1
+    pull_policy: missing
+    ports:
+      - "9003:80"
+
+  manchester-workshop:
+    image: surmus/manchester-tire-workshop:2.0.1
+    pull_policy: missing
+    ports:
+      - "9004:80"
+
+  backend:
+    image: ghcr.io/karljl/smit-backend:latest
+    pull_policy: missing
+    depends_on:
+      - london-workshop
+      - manchester-workshop
+    ports:
+      - "8000:8000"
+    configs:
+      - source: workshops_config
+        target: /app/configs/workshops.json
+
+      - source: endpoints_config
+        target: /app/configs/endpoints.json
+
+configs:
+  workshops_config:
+    file: ./configs/workshops.json
+  endpoints_config:
+    file: ./configs/endpoints.json
