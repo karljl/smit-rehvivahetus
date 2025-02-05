@@ -46,9 +46,32 @@ Kui kõik docker image'd saavad alla tõmmatud, on rakendus saadaval aadressil h
 
 ### Backendi testimine
 
-Rakenduse testimiseks on vajalik ```python3``` ning ```pytest``` ja ```pytest-asyncio``` library'd.
+Rakenduse testimiseks on vajalik ```python3```.
 
-Testide jooksutamiseks mine ```smit-rehvivahetus/backend/tests``` kataloogi ning jooksuta käsku ```pytest```
+1. Mine ```smit-rehvivahetus/backend/tests``` kataloogi
+
+2. Loo ning aktiveeri uus pythoni virtual environment
+    ```bash
+    python -m venv .venv && source .venv/bin/activate
+    ```
+   või
+    ```bash
+    python3 -m venv .venv && source .venv/bin/activate
+    ```
+   
+3. Installi testide jooksutamiseks vajalikud library'd
+    ```bash
+    pip install -r test_requirements.txt
+    ```
+   või
+    ```bash
+    pip3 install -r test_requirements.txt
+    ```
+   
+4. Jooksuta teste
+    ```bash
+    pytest
+    ```
 
 ### Kontakt
 
