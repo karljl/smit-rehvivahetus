@@ -13,7 +13,6 @@ import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material';
 import Button from '@mui/material/Button';
 import axios from 'axios';
-import { config } from '../../../configs/config.ts';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { CustomAlert } from './BookingAlert.tsx';
@@ -24,6 +23,7 @@ function FormDialog(props: {
   isOpen: boolean;
   handleClose: () => void;
   setAlert: Dispatch<SetStateAction<CustomAlert | undefined>>;
+  setFormSubmitted: Dispatch<SetStateAction<boolean>>;
 }) {
   const theme = useTheme();
 
@@ -35,7 +35,7 @@ function FormDialog(props: {
 
     if (props.currentRow) {
       axios
-        .post(`${config.endpoint}/book-time`, {
+        .post(`/api/book-time`, {
           id: props.currentRow.id,
           workshop: props.currentRow.workshop,
           contact_info: JSON.stringify(contactInfo),
@@ -50,7 +50,8 @@ function FormDialog(props: {
         )
         .catch((error) =>
           props.setAlert({ severity: 'error', text: checkError(error.status) }),
-        );
+        )
+        .finally(() => props.setFormSubmitted(true));
     }
 
     props.handleClose();

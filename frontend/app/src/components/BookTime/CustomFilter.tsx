@@ -15,7 +15,7 @@ import FormLabel from '@mui/material/FormLabel';
 import Stack from '@mui/material/Stack';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import dayjs from 'dayjs';
-import { config } from '../../../configs/config.ts';
+import { config } from 'configs/config.js';
 import { dateTimeFormat } from '../../pages/BookTime.tsx';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
@@ -62,7 +62,9 @@ function CustomFilter(props: Props) {
   function handleWorkshopChange(event: SelectChangeEvent<string[]>) {
     const { value } = event.target;
     props.setCurrentWorkshops(
-      config.workshops.filter((workshop) => value.includes(workshop.name)),
+      config.workshops.filter((workshop: WorkShop) =>
+        value.includes(workshop.name),
+      ),
     );
   }
 
@@ -122,12 +124,14 @@ function CustomFilter(props: Props) {
         <CustomFormGroup title="Töökojad" width={400}>
           <Select
             multiple
-            value={props.currentWorkshops.map((workshop) => workshop.name)}
+            value={props.currentWorkshops.map(
+              (workshop: WorkShop) => workshop.name,
+            )}
             onChange={handleWorkshopChange}
             input={<OutlinedInput label="Töökojad" />}
             renderValue={(selected) => selected.join(', ')}
           >
-            {config.workshops.map((workshop) => (
+            {config.workshops.map((workshop: WorkShop) => (
               <MenuItem key={workshop.name} value={workshop.name}>
                 <Checkbox checked={props.currentWorkshops.includes(workshop)} />
                 <ListItemText primary={workshop.name} />

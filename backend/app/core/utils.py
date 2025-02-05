@@ -1,5 +1,5 @@
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Optional, List
 
 import pytz
@@ -35,13 +35,8 @@ def convert_to_utc(date: datetime) -> datetime:
     return date.astimezone(pytz.utc)
 
 
-def get_default_dates(from_date: datetime | None, until_date: datetime | None) -> tuple[datetime, datetime]:
-    """Return default dates if not provided."""
-    if from_date is None:
-        from_date = datetime.now()
-    if until_date is None:
-        until_date = datetime.now() + timedelta(weeks=4)
-    return from_date, until_date
+def str_to_datetime(text: str, date_format: str) -> datetime:
+    return convert_to_utc(datetime.strptime(text, date_format))
 
 
 def format_datetime(date_time: datetime):

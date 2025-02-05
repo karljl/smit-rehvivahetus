@@ -10,10 +10,10 @@ async def book_workshop_time(body: Body, adapters: List[WorkshopAPI]):
     """Attempts to book a time slot at the specified workshop."""
     workshop = None
     for adapter in adapters:
-        if adapter.get_name() == body.name:
+        if adapter.get_name() == body.workshop:
             workshop = adapter
 
     if workshop is None:
-        raise HTTPException(status_code=404, detail=f'Workshop {body.name} not found')
+        raise HTTPException(status_code=404, detail=f'Workshop {body.workshop} not found')
 
-    return await workshop.book_slot(body.id, body.contact_info)
+    return await workshop.book_slot(str(body.id), body.contact_info)

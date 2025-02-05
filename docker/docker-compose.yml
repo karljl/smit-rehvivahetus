@@ -19,8 +19,6 @@ services:
     depends_on:
       - london-workshop
       - manchester-workshop
-    ports:
-      - "8000:8000"
     configs:
       - source: workshops_config
         target: /app/configs/workshops.json
@@ -28,8 +26,21 @@ services:
       - source: endpoints_config
         target: /app/configs/endpoints.json
 
+  frontend:
+    image: ghcr.io/karljl/smit-frontend:latest
+    pull_policy: missing
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+    configs:
+      - source: frontend_config
+        target: /app/configs/config.js
+
 configs:
   workshops_config:
     file: ./configs/workshops.json
   endpoints_config:
     file: ./configs/endpoints.json
+  frontend_config:
+    file: ./configs/frontend_config.js

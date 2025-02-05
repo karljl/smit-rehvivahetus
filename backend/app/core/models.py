@@ -14,9 +14,8 @@ class SlotQuery(BaseModel):
     workshops: Optional[List[str]]
     from_date: Optional[datetime]
     until_date: Optional[datetime]
-    vehicle_types: Optional[List[VehicleType]]
+    vehicle_type: Optional[VehicleType]
     limit: Optional[int]
-    offset: Optional[int]
 
 
 class Slot(BaseModel):
@@ -29,7 +28,7 @@ class Slot(BaseModel):
 
 class Body(BaseModel):
     id: Union[str, int]
-    name: str
+    workshop: str
     contact_info: str
 
 

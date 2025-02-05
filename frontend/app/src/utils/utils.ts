@@ -1,4 +1,5 @@
-import { config } from '../../configs/config.ts';
+import { config } from 'configs/config.js';
+import { WorkShop } from '../models/models.ts';
 
 export function convertDate(dateString: string | undefined) {
   if (!dateString) {
@@ -18,7 +19,9 @@ export function convertDate(dateString: string | undefined) {
 
 export function getAllVehicleTypes() {
   return [
-    ...new Set(config.workshops.flatMap((workshop) => workshop.vehicle_types)),
+    ...new Set(
+      config.workshops.flatMap((workshop: WorkShop) => workshop.vehicle_types),
+    ),
   ];
 }
 

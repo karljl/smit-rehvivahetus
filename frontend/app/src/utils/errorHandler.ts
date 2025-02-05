@@ -1,5 +1,7 @@
 export function checkError(errorCode: number) {
   switch (errorCode) {
+    case 409:
+      return 'Palun sisesta kuupäevad korrektselt.';
     case 422:
       return 'See aeg on juba broneeritud. Palun vali uus aeg.';
     case 500:

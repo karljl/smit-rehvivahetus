@@ -38,14 +38,12 @@ class TimeSpecification(Specification):
 
 
 class VehicleTypeSpecification(Specification):
-    def __init__(self, vehicle_types: Optional[List[VehicleType]] = None):
-        self._vehicle_types = vehicle_types
+    def __init__(self, vehicle_type: Optional[VehicleType] = None):
+        self._vehicle_type = vehicle_type
 
     def is_satisfied(self, item: Slot):
-        if self._vehicle_types:
-            for vehicle_type in self._vehicle_types:
-                if vehicle_type not in item.vehicle_types:
-                    return False
+        if self._vehicle_type:
+            return self._vehicle_type in item.vehicle_types
         return True
 
 

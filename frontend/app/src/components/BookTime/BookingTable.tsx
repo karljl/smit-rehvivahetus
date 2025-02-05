@@ -1,7 +1,7 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Row, Slot, WorkShop } from '../../models/models.ts';
 import NoRowsOverlay from './NoRowsOverlay.tsx';
-import { config } from '../../../configs/config.ts';
+import { config } from 'configs/config.js';
 import { convertDate } from '../../utils/utils.ts';
 import { ReactNode } from 'react';
 import IconButton from '@mui/material/IconButton';
@@ -23,7 +23,7 @@ function BookingTable({
   handleDialogOpen,
 }: BookingTableProps) {
   const theme = useTheme();
-  const workshops =
+  const workshops: WorkShop[] =
     currentWorkshops.length > 0 ? currentWorkshops : config.workshops;
 
   const columns: GridColDef[] = [
@@ -36,7 +36,7 @@ function BookingTable({
       headerAlign: 'center',
     },
     ...workshops.map(
-      (workshop) =>
+      (workshop: WorkShop) =>
         ({
           field: workshop.name,
           headerName: workshop.name,
@@ -49,18 +49,25 @@ function BookingTable({
     ),
   ];
 
-  const slotMap = slots.reduce<Record<string, string[]>>((acc, slot) => {
-    acc[slot.time] = acc[slot.time] || [];
-    acc[slot.time].push(slot.workshop);
-    return acc;
-  }, {});
+  // Slot map: key is time, value is array of { id, name }
+  const slotMap = slots.reduce<Record<string, { id: string; name: string }[]>>(
+    (acc, slot) => {
+      acc[slot.time] = acc[slot.time] || [];
+      acc[slot.time].push({ id: slot.id, name: slot.workshop });
+      return acc;
+    },
+    {},
+  );
 
   const rows = Object.keys(slotMap).map((time) => ({
     id: time,
     time: convertDate(time),
     ...workshops.reduce(
       (acc, workshop) => {
-        acc[workshop.name] = slotMap[time].includes(workshop.name) ? (
+        const matchingSlot = slotMap[time].find(
+          (slot) => slot.name === workshop.name,
+        );
+        acc[workshop.name] = matchingSlot ? (
           <IconButton
             sx={{
               '&:hover': {
@@ -73,7 +80,7 @@ function BookingTable({
             size="small"
             onClick={() =>
               handleDialogOpen({
-                id: time,
+                id: matchingSlot.id,
                 time,
                 workshop: workshop.name,
               } as Row)

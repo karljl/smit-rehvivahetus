@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "baseUrl": "./src",
+    "paths": {
+      "configs/config.js": ["src/configs/config.js"]
+    },
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": [

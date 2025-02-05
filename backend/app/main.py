@@ -41,8 +41,8 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-app.include_router(book_time_router)
-app.include_router(available_times_router)
+app.include_router(book_time_router, prefix='/api')
+app.include_router(available_times_router, prefix='/api')
 
 origins = [
     "*",

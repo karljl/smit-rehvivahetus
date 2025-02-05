@@ -1,0 +1,20 @@
+[
+  {
+    "name": "London Tire Workshop",
+    "protocol": "http",
+    "host": "localhost",
+    "port": "9003",
+    "root": "api/v1/tire-change-times",
+    "available_times": "available",
+    "book_time": "{uuid}/booking"
+  },
+  {
+    "name": "Manchester Tire Workshop",
+    "protocol": "http",
+    "host": "localhost",
+    "port": "9004",
+    "root": "api/v2/tire-change-times",
+    "available_times": "",
+    "book_time": "{id}/booking"
+  }
+]

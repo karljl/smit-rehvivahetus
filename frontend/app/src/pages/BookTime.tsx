@@ -6,7 +6,7 @@ import { VehicleType } from '../types/vehicleType.ts';
 import dayjs from 'dayjs';
 import qs from 'qs';
 import { useTheme } from '@mui/material';
-import { config } from '../../configs/config.ts';
+import { config } from 'configs/config.js';
 import FormDialog from '../components/BookTime/FormDialog.tsx';
 import { Row, Slot, WorkShop } from '../models/models.ts';
 import BookingAlert from '../components/BookTime/BookingAlert.tsx';
@@ -20,13 +20,14 @@ function BookTime() {
   const theme = useTheme();
 
   const [slots, setSlots] = useState<Array<Slot>>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [currentRow, setCurrentRow] = useState<Row>();
   const [alert, setAlert] = useState<{
     severity: 'success' | 'error';
     text: string;
   }>();
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   // filter options
   const [fromDate, setFromDate] = useState<string>(
@@ -43,9 +44,11 @@ function BookTime() {
 
   useEffect(() => {
     setLoading(true);
+    setFormSubmitted(false);
+
     const debounce = setTimeout(() => {
       axios
-        .get(`${config.endpoint}/available-times`, {
+        .get(`/api/available-times`, {
           timeout: 3000,
           params: {
             from_date: fromDate,
@@ -66,7 +69,13 @@ function BookTime() {
     }, 500);
 
     return () => clearTimeout(debounce);
-  }, [fromDate, untilDate, currentWorkshops, currentVehicleType]);
+  }, [
+    fromDate,
+    untilDate,
+    currentWorkshops,
+    currentVehicleType,
+    formSubmitted,
+  ]);
 
   function handleDialogOpen(row: Row | undefined) {
     if (!row) {
@@ -98,6 +107,7 @@ function BookTime() {
         isOpen={dialogIsOpen}
         handleClose={handleDialogClose}
         setAlert={setAlert}
+        setFormSubmitted={setFormSubmitted}
       />
 
       <CustomFilter
