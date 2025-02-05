@@ -1,4 +1,4 @@
-import { feedbacks } from '../../data/feedbacks';
+import { feedbacks } from '../../../data/feedbacks.ts';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -18,7 +18,9 @@ function FeedbackScroll() {
   };
 
   const goPrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + feedbacks.length) % feedbacks.length);
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + feedbacks.length) % feedbacks.length,
+    );
   };
 
   return (
@@ -27,11 +29,23 @@ function FeedbackScroll() {
         <ArrowBack />
       </IconButton>
 
-
-      <Card sx={{ display: 'flex', alignItems: 'center', flex: '1', flexDirection: 'column', gap: 2, padding: theme.spacing(6, 12) }}>
+      <Card
+        sx={{
+          minHeight: 256,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: '1',
+          flexDirection: 'column',
+          gap: 2,
+          padding: { xs: theme.spacing(1, 2), md: theme.spacing(6, 12) },
+        }}
+      >
         <Rating readOnly value={feedbacks[currentIndex].stars} />
         <Typography variant="body1">{feedbacks[currentIndex].text}</Typography>
-        <Typography variant="body2" marginTop={1}>{feedbacks[currentIndex].name}</Typography>
+        <Typography variant="body2" marginTop={1}>
+          {feedbacks[currentIndex].name}
+        </Typography>
       </Card>
 
       <IconButton onClick={goNext}>

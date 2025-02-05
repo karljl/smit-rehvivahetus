@@ -6,41 +6,57 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import { useMediaQuery, useTheme } from '@mui/material';
 import Container from '@mui/material/Container';
-import FeedbackScroll from '../components/FeedbackScroll.tsx';
+import Box from '@mui/material/Box';
+import Feedback from '../components/Home/Feedback.tsx';
+import TextSection from '../components/Home/TextSection.tsx';
 
 function Home() {
   const theme = useTheme();
-  const belowLg = useMediaQuery(theme.breakpoints.down('lg'));
+  const belowMd = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Stack gap={belowLg ? 0 : 4}>
-      <img src={hero_image} alt="RV - Parim rehvitöökoda kogu Euroopas" />
-      <Container maxWidth={belowLg? 'md' : 'lg'}>
-        <Paper elevation={1} sx={{ padding: belowLg ? theme.spacing(4, 8) : theme.spacing(8, 16), borderRadius: 2, boxShadow: 'none' }}>
-          <Typography variant="h1" marginBottom={4}>RV – sinu usaldusväärne partner rehvide vahetuses ja hoolduses</Typography>
+    <Stack gap={belowMd ? 0 : 4}>
+      <Box
+        component="img"
+        src={hero_image}
+        alt="RV - Parim rehvitöökoda kogu Euroopas"
+      />
 
-          <Stack gap={1}>
-            <Typography variant="body1">Ohutu sõit algab õigest rehvivalikust.</Typography>
-            <Typography variant="body1">Meie kogenud meeskond hoolitseb selle eest, et su auto püsiks kindlalt teel iga ilmaga.</Typography>
-            <Typography variant="body1">Töötame kiirelt ja professionaalselt, et ükski tähtis sõit ei jääks sõitmata.</Typography>
-            <Typography variant="body1">Pakume laias valikus rehve sõidu- ja veoautodele.</Typography>
-            <Typography variant="body1">Olgu su sihtpunkt lähedal või kaugel – alusta teekonda õigete rehvidega!</Typography>
-          </Stack>
+      <Container maxWidth={belowMd ? 'md' : 'lg'}>
+        <Paper
+          elevation={1}
+          sx={{
+            padding: belowMd ? theme.spacing(4) : theme.spacing(4, 8),
+            borderRadius: 2,
+            boxShadow: 'none',
+          }}
+        >
+          <Typography variant="h1" marginBottom={4}>
+            RV – sinu usaldusväärne partner rehvide vahetuses ja hoolduses
+          </Typography>
+
+          <TextSection />
 
           <Link href="broneeri-aeg">
-            <Button variant="text" sx={{ padding: theme.spacing(2, 4), marginTop: 4, color: theme.palette.text.primary, background: '#179435', '&:hover': { background: '#005c47' }, transition: 'none' }}>
+            <Button
+              variant="text"
+              sx={{
+                width: belowMd ? '100%' : 'unset',
+                transition: 'none',
+                padding: theme.spacing(2, 4),
+                marginTop: 6,
+                color: theme.palette.text.primary,
+                background: '#004830',
+                '&:hover': { background: '#3b7a57' },
+              }}
+            >
               <Typography variant="body1">Broneeri aeg kohe</Typography>
             </Button>
           </Link>
         </Paper>
       </Container>
 
-      <Paper elevation={3} sx={{ padding: theme.spacing(8, 1) }}>
-        <Typography variant="h2" marginBottom={4} textAlign="center">Kliendid räägivad:</Typography>
-        <Container maxWidth={belowLg? 'md' : 'lg'}>
-          <FeedbackScroll />
-        </Container>
-      </Paper>
+      <Feedback />
     </Stack>
   );
 }

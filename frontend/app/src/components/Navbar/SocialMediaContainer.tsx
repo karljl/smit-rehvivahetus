@@ -14,13 +14,15 @@ function SocialMediaContainer() {
       <IconButton
         onClick={() => navigate('https://www.instagram.com')}
         sx={{ '&:hover': { color: '#9eadbd', background: 'none' } }}
-        size="medium">
+        size="medium"
+      >
         <InstagramIcon fontSize="medium" />
       </IconButton>
       <IconButton
         onClick={() => navigate('https://www.facebook.com')}
         sx={{ '&:hover': { color: '#9eadbd', background: 'none' } }}
-        size="medium">
+        size="medium"
+      >
         <FacebookIcon fontSize="medium" />
       </IconButton>
     </Box>

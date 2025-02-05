@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router';
-import Home from './pages/Home.tsx';
-import BookTime from './pages/BookTime.tsx';
+import Home from '../pages/Home.tsx';
+import BookTime from '../pages/BookTime.tsx';
 
 function Router() {
   return (

@@ -1,10 +1,7 @@
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material';
 
 function Footer() {
-  const theme = useTheme();
-
   return (
     <Stack
       component="footer"
@@ -13,7 +10,8 @@ function Footer() {
         justifyContent: 'center',
         alignItems: 'center',
         padding: 1,
-      }}>
+      }}
+    >
       <Typography
         variant="body1"
         className="copyright-container"
